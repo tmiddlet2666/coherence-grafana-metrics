@@ -1,4 +1,4 @@
-# Capture Coherence Metrics and Display in Grafana
+# Monitor Your Coherence Clusters using Grafana and Prometheus
 
 ## Introduction
 
