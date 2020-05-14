@@ -7,7 +7,6 @@ members, capture those metrics via Prometheus and display then in Grafana
 using the dashboards from the [Coherence Operator](https://github.com/oracle/coherence-operator) project.
 
 **This is an example only and you can use this as a guide to adding Grafana monitoring to your cluster.**
-**You should ensure you apply**
 
 See the following for more information:
 * [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/manage/using-coherence-metrics.html)
@@ -16,7 +15,7 @@ See the following for more information:
 
 > Note: These will work for Coherence versions 12.2.1.4.0 and above.
 
-If you notice any errors in this documentation, please raise a P/R.
+If you notice any errors in this documentation, please raise a P/R or issue.
 
 ## Prerequisites
 
