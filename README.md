@@ -28,8 +28,7 @@ You must have the following:
 * Oracle Coherence 12.2.1.4.+ installed
 * Cloned this repository via `git clone https://github.com/tmiddlet2666/coherence-grafana-metrics.git`
 
-> Note: This document currently includes instructions for Mac/Linux. Please raise an issue if you would like Windows instructions added.
-
+> Note: This document currently includes instructions for Mac/Linux. Where appropriate, alternative Windows commands have been shown.
 ## 1. Install Coherence and metrics dependencies
 
 Download and install Coherence from [https://www.oracle.com/middleware/technologies/coherence-downloads.html](https://www.oracle.com/middleware/technologies/coherence-downloads.html)
