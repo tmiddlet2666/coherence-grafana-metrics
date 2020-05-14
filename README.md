@@ -7,7 +7,6 @@ members, capture those metrics via Prometheus and display then in Grafana
 using the dashboards from the [Coherence Operator](https://github.com/oracle/coherence-operator) project.
 
 **This is an example only and you can use this as a guide to adding Grafana monitoring to your cluster.**
-**You should ensure you apply**
 
 See the following for more information:
 * [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/manage/using-coherence-metrics.html)
@@ -16,7 +15,7 @@ See the following for more information:
 
 > Note: These will work for Coherence versions 12.2.1.4.0 and above.
 
-If you notice any errors in this documentation, please raise a P/R.
+If you notice any errors in this documentation, please raise a P/R or issue.
 
 ## Prerequisites
 
@@ -28,7 +27,7 @@ You must have the following:
 * Oracle Coherence 12.2.1.4.+ installed
 * Cloned this repository via `git clone https://github.com/tmiddlet2666/coherence-grafana-metrics.git`
 
-> Note: This document curently includes instructions for Mac/Linux. Please raise an issue if you would like Windows instructions added.
+> Note: This document has been written for Mac/Linux. Where appropriate, alternative Windows commands have been shown.
 
 ## 1. Install Coherence and metrics dependencies
 
@@ -36,7 +35,10 @@ Download and install Coherence from [https://www.oracle.com/middleware/technolog
 
 Set the COHERENCE_HOME environment variable to the `coherence` directory you just installed and run the Maven commands below to import the coherence.jar and coherence-metrics.jar in your local repository.
 
-> Note: In the example below Coherence was installed into /u01/oracle/product/coherence/coherence12.2.1.4.0.
+> Note: In the example below Coherence was installed into /u01/oracle/product/coherence/coherence12.2.1.4.0 for Mac/Linux and
+> C:\Tim\coherence12214 for Windows.
+
+For Mac/Linux
 
 ```bash
 export COHERENCE_HOME=/u01/oracle/product/coherence/coherence12.2.1.4.0/coherence
@@ -45,7 +47,16 @@ mvn install:install-file -Dfile=$COHERENCE_HOME/lib/coherence.jar         -DpomF
 mvn install:install-file -Dfile=$COHERENCE_HOME/lib/coherence-metrics.jar -DpomFile=$COHERENCE_HOME/plugins/maven/com/oracle/coherence/coherence-metrics/12.2.1/coherence-metrics.12.2.1.pom
 ```
 
-> Note: If you Coherence version is greater than 12.2.1, then change the 12.2.1 to the correct version.
+Windows
+
+```bash
+SET COHERENCE_HOME=c:\Tim\coherence12214
+mvn install:install-file -Dfile=%COHERENCE_HOME%\lib\coherence.jar         -DpomFile=%COHERENCE_HOME%\plugins\maven\com\oracle\coherence\coherence\12.2.1\coherence.12.2.1.pom
+mvn install:install-file -Dfile=%COHERENCE_HOME%\lib\coherence-metrics.jar -DpomFile=%COHERENCE_HOME%\plugins\maven\com\oracle\coherence\coherence-metrics\12.2.1\coherence-metrics.12.2.1.pom
+
+```
+
+> Note: If your Coherence version is greater than 12.2.1, then change the 12.2.1 to the correct version.
 
 ## 2. Generate the required dependencies
 
@@ -59,7 +70,7 @@ mvn dependency:build-classpath -P jdk11
 
 Remove `-P jdk11` if you are using JDK8.
 
-Save the output of `[INFO] Dependencies classpath:` above to the `METRICS_CP` variable in `start-server.sh`.
+Save the output of `[INFO] Dependencies classpath:` above to the `METRICS_CP` variable in `start-server.sh` or `start-server.cmd`.
 
 Eg. replace `<INSERT FULL CLASSPATH HERE>` with the classpath contents.
 
@@ -75,11 +86,14 @@ export COHERENCE_HOME=/u01/oracle/product/coherence/coherence12.2.1.4.0/coherenc
 
 ## 3. Start Coherence cache servers
 
+> Note: For Windows, replace start-server.sh with start-server.cmd.
+
 Startup a cache server with metrics enabled on port 9612 with a role of CoherenceServer
 
 ```bash
 ./start-server.sh 9612 member1 CoherenceServer
-```
+```     
+
 
 Startup a second cache server with metrics enabled on port 9613
 
@@ -101,7 +115,7 @@ You should see the following indicating the metrics service is started in each o
 
 ## 4. Start the Console to Add Data
 
-> Note: change the full path to your coehrence.jar
+> Note: change the full path to your coherence.jar
 
 ```bash
 java -Dcoherence.distributed.localstorage=false -cp /u01/oracle/product/coherence/coherence12.2.1.4.0/coherence/lib/coherence.jar com.tangosol.net.CacheFactory
@@ -129,7 +143,7 @@ Edit `prometheus.yml` and ensure the static configs are set as below:
 Build the docker image using:
 
 ```bash
-./create-prom-docker.sh
+docker build -t prometheus_coherence .
 ```
 
 This will create the image `prometheus_coherence:latest` with the above `prometheus.yaml`.
@@ -143,7 +157,7 @@ docker run -d -p $HOST:9090:9090 prometheus_coherence:latest
 docker run -d -p $HOST:3000:3000 grafana/grafana:6.6.2
 ```
 
-> Note: Change HOST to a value that is suitable for your setup.
+> Note: Change HOST to a value that is suitable for your setup. 
 
 ## 7 Clone the Coherence Operator repository
 
