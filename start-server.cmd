@@ -15,6 +15,7 @@ SET COHERENCE_HOME=c:\tim\coherence12214
 set METRICS_CP="<INSERT FULL CLASSPATH HERE>"
 
 java -Dcoherence.metrics.http.enabled=true -Dcoherence.metrics.http.port=%PORT% ^
+     -Dcoherence.metrics.legacy.names=false ^
      -Dcoherence.machine=localhost -Dcoherence.role=%ROLE% -Dcoherence.member=%MEMBER% ^
      -Dcoherence.site=PrimarySite ^
      -cp "%COHERENCE_HOME%\lib\coherence.jar;%METRICS_CP%" com.tangosol.net.DefaultCacheServer
