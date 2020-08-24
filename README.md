@@ -88,7 +88,7 @@ You should see the following indicating the metrics service is started in each o
   ProxyService{Name=MetricsHttpProxy, State=(SERVICE_STARTED), Id=5, OldestMemberId=1}
 ```     
 
-## 3. Start the Console to Add Data
+## 3. Start the Console to add data
 
 ```bash
 export COH_JAR=~/.m2/repository/com/oracle/coherence/ce/coherence/20.06/coherence-20.06.jar
@@ -122,7 +122,7 @@ docker build -t prometheus_coherence .
 
 This will create the image `prometheus_coherence:latest` with the above `prometheus.yaml`.
 
-## 5. Run the docker images
+## 5. Run the Docker images
 
 ```bash
 export HOST=127.0.0.1
@@ -148,7 +148,7 @@ going to the following URL: `http://127.0.0.1:9090/targets`
 
 You should see the targets you started in an `UP` state.
 
-## 8. Access Grafana and Create a datasource
+## 8. Access Grafana and create a datasource
 
 Login to Grafana using the following URL: `http://127.0.0.1:3000/`  - default user admin/admin
 
@@ -158,7 +158,7 @@ Ensure that you make this datasource the default datasource if it is not already
 
 > Note: Change the `host.docker.internal` to an actual host name if you are running Prometheus outside of docker.
 
-## 9. Import the Grafana Dashboards
+## 9. Import the Grafana dashboards
 
 Login to Grafana and click on the `+` then `Import` and `Upload JSON File`.
 Select each of the dashboards in the `coherence-operator/dashboards/grafana` directory you cloned above
