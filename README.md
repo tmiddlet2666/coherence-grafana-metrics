@@ -1,4 +1,4 @@
-# Monitor Your Coherence Clusters using Grafana and Prometheus
+# Monitor Your Coherence Clusters using Grafana and Prometheus (Coherence CE)
 
 ## Introduction
 
@@ -7,17 +7,20 @@ members, capture those metrics via Prometheus and display then in Grafana
 using the dashboards from the [Coherence Operator](https://github.com/oracle/coherence-operator) project.
 
 > Note: This release of the coherence-grafana-metrics repository has instructions specifically for the
-> Commercial eidition of Coherence.
-> Please change to the master branch for Coherence Community Edition (CE) instructions.
+> Community Edition (CE) of Coherence. Please change to the [v1.0.0](https://github.com/tmiddlet2666/coherence-grafana-metrics/tree/v1.0.0) branch for Commercial Coherence instructions.
 
 **This is an example only and you can use this as a guide to adding Grafana monitoring to your cluster.**
 
 See the following for more information:
-* [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/manage/using-coherence-metrics.html)
-* [Coherence Operator GitHub Page](https://github.com/oracle/coherence-operator)
-* [Coherence Operator Metrics Documentation](https://oracle.github.io/coherence-operator/docs/2.1.0/#/metrics/010_overview)
+* [Coherence Community Edition on GitHub](https://github.com/oracle/coherence)
+* [Coherence Community Home Page](https://coherence.community/)
+* [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/manage/using-coherence-metrics.html)
+* [Coherence Operator on GitHub](https://github.com/oracle/coherence-operator)
+* [Coherence Operator Metrics Documentation](https://oracle.github.io/coherence-operator/docs/3.0.0/#/metrics/010_overview)
+* [Grafana](https://grafana.com/)
 
-> Note: These will work for Coherence versions 12.2.1.4.0 and above.
+
+> Note: These instructions will work for Coherence CE versions 14.1.1-0-1 and above.
 
 If you notice any errors in this documentation, please raise a P/R or issue.
 
@@ -27,48 +30,16 @@ You must have the following:
 
 * Docker Desktop for Mac or the equivalent Docker environment for you O/S.
 * Maven 3.5.4+
-* JDK 11 or 8
-* Oracle Coherence 12.2.1.4.+ installed
+* JDK 11
 * Cloned this repository via `git clone https://github.com/tmiddlet2666/coherence-grafana-metrics.git`
 
 > Note: This document has been written for Mac/Linux. Where appropriate, alternative Windows commands have been shown.
 
-## 1. Install Coherence and metrics dependencies
+## 1. Generate the required dependencies
 
-Download and install Coherence from [https://www.oracle.com/middleware/technologies/coherence-downloads.html](https://www.oracle.com/middleware/technologies/coherence-downloads.html)
-
-Set the COHERENCE_HOME environment variable to the `coherence` directory you just installed and run the Maven commands below to import the coherence.jar and coherence-metrics.jar in your local repository.
-
-> Note: In the example below Coherence was installed into /u01/oracle/product/coherence/coherence12.2.1.4.0 for Mac/Linux and
-> C:\Tim\coherence12214 for Windows.
-
-For Mac/Linux
 
 ```bash
-export COHERENCE_HOME=/u01/oracle/product/coherence/coherence12.2.1.4.0/coherence
-
-mvn install:install-file -Dfile=$COHERENCE_HOME/lib/coherence.jar         -DpomFile=$COHERENCE_HOME/plugins/maven/com/oracle/coherence/coherence/12.2.1/coherence.12.2.1.pom
-mvn install:install-file -Dfile=$COHERENCE_HOME/lib/coherence-metrics.jar -DpomFile=$COHERENCE_HOME/plugins/maven/com/oracle/coherence/coherence-metrics/12.2.1/coherence-metrics.12.2.1.pom
-```
-
-Windows
-
-```bash
-SET COHERENCE_HOME=c:\Tim\coherence12214
-mvn install:install-file -Dfile=%COHERENCE_HOME%\lib\coherence.jar         -DpomFile=%COHERENCE_HOME%\plugins\maven\com\oracle\coherence\coherence\12.2.1\coherence.12.2.1.pom
-mvn install:install-file -Dfile=%COHERENCE_HOME%\lib\coherence-metrics.jar -DpomFile=%COHERENCE_HOME%\plugins\maven\com\oracle\coherence\coherence-metrics\12.2.1\coherence-metrics.12.2.1.pom
-
-```
-
-> Note: If your Coherence version is greater than 12.2.1, then change the 12.2.1 to the correct version.
-
-## 2. Generate the required dependencies
-
-Follow the instructions from the Coherence 12.2.1.4 metrics documentation https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/manage/using-coherence-metrics.html and create a pom.xml.
-
-The above instructions have been included below for convenience:
-
-```bash
+cd coherence-grafana-metrics
 mvn dependency:build-classpath -P jdk11
 ```
 
@@ -88,7 +59,7 @@ Also ensure COHERENCE_HOME is set correctly to the coherence directory as below:
 export COHERENCE_HOME=/u01/oracle/product/coherence/coherence12.2.1.4.0/coherence
 ```
 
-## 3. Start Coherence cache servers
+## 2. Start Coherence cache servers
 
 > Note: For Windows, replace start-server.sh with start-server.cmd.
 
@@ -117,12 +88,11 @@ You should see the following indicating the metrics service is started in each o
   ProxyService{Name=MetricsHttpProxy, State=(SERVICE_STARTED), Id=5, OldestMemberId=1}
 ```     
 
-## 4. Start the Console to Add Data
-
-> Note: change the full path to your coherence.jar
+## 3. Start the Console to add data
 
 ```bash
-java -Dcoherence.distributed.localstorage=false -cp /u01/oracle/product/coherence/coherence12.2.1.4.0/coherence/lib/coherence.jar com.tangosol.net.CacheFactory
+export COH_JAR=~/.m2/repository/com/oracle/coherence/ce/coherence/20.06/coherence-20.06.jar
+java -Dcoherence.distributed.localstorage=false -cp $COH_JAR  com.tangosol.net.CacheFactory
 ```
 
 Enter the following at the prompt to create a cache and add 100,000 random objects:
@@ -131,9 +101,9 @@ cache test
 bulkput 100000 100 0 100
 ```
 
-## 5. Create the Prometheus Docker image
+Type `bye` to exit the Console.
 
-> Note: Ensure you have docker running.
+## 4. Create the Prometheus Docker image
 
 Edit `prometheus.yml` and ensure the static configs are set as below:
 
@@ -152,18 +122,18 @@ docker build -t prometheus_coherence .
 
 This will create the image `prometheus_coherence:latest` with the above `prometheus.yaml`.
 
-## 6. Run the docker images
+## 5. Run the Docker images
 
 ```bash
 export HOST=127.0.0.1
 docker run -d -p $HOST:9090:9090 prometheus_coherence:latest
 
-docker run -d -p $HOST:3000:3000 grafana/grafana:6.6.2
+docker run -d -p $HOST:3000:3000 grafana/grafana:7.1.4
 ```
 
 > Note: Change HOST to a value that is suitable for your setup.
 
-## 7 Clone the Coherence Operator repository
+## 6. Clone the Coherence Operator repository
 
 Issue the following to clone the Coherence Operator repository.
 
@@ -171,14 +141,14 @@ Issue the following to clone the Coherence Operator repository.
 git clone https://github.com/oracle/coherence-operator.git
 ```
 
-## 8. Access Prometheus
+## 7. Access Prometheus
 
 Login to Prometheus and confirm that the targets have been discovered by
 going to the following URL: `http://127.0.0.1:9090/targets`
 
 You should see the targets you started in an `UP` state.
 
-## 9. Access Grafana and Create a datasource
+## 8. Access Grafana and create a datasource
 
 Login to Grafana using the following URL: `http://127.0.0.1:3000/`  - default user admin/admin
 
@@ -188,16 +158,18 @@ Ensure that you make this datasource the default datasource if it is not already
 
 > Note: Change the `host.docker.internal` to an actual host name if you are running Prometheus outside of docker.
 
-## 10. Import the Grafana Dashboards
+## 9. Import the Grafana dashboards
 
 Login to Grafana and click on the `+` then `Import` and `Upload JSON File`.
-Select each of the dashboards in the `coherence-operator/helm-charts/coherence-operator/dashboards` directory you cloned above
+Select each of the dashboards in the `coherence-operator/dashboards/grafana` directory you cloned above
 and import them into Grafana.
 
-## 11. Access the Main Grafana dashboards
+> Note: The Federation and Elastic Data dashboards will not display anything as this functionality is not available in Coherence CE.
+
+## 10. Access the Main Grafana dashboards
 
 Access Grafana using the following URL: `http://127.0.0.1:3000/d/coh-main/coherence-dashboard-main`.
 
-## 12. Cleanup
+## 11. Cleanup
 
 Ensure you kill your docker images you started.
