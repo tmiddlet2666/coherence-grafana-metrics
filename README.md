@@ -12,9 +12,13 @@ using the dashboards from the [Coherence Operator](https://github.com/oracle/coh
 **This is an example only and you can use this as a guide to adding Grafana monitoring to your cluster.**
 
 See the following for more information:
-* [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/manage/using-coherence-metrics.html)
-* [Coherence Operator GitHub Page](https://github.com/oracle/coherence-operator)
-* [Coherence Operator Metrics Documentation](https://oracle.github.io/coherence-operator/docs/2.1.0/#/metrics/010_overview)
+* [Coherence Community Edition on GitHub](https://github.com/oracle/coherence)
+* [Coherence Community Home Page](https://coherence.community/)
+* [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/manage/using-coherence-metrics.html)
+* [Coherence Operator on GitHub](https://github.com/oracle/coherence-operator)
+* [Coherence Operator Metrics Documentation](https://oracle.github.io/coherence-operator/docs/3.0.0/#/metrics/010_overview)
+* [Grafana](https://grafana.com/)
+
 
 > Note: These will work for Coherence CE versions 14.1.1-0-1 and above.
 
@@ -173,9 +177,3 @@ Access Grafana using the following URL: `http://127.0.0.1:3000/d/coh-main/cohere
 ## 11. Cleanup
 
 Ensure you kill your docker images you started.
-
-# References
-
-* [Coherence Community Edition on GitHub](https://github.com/oracle/coherence)
-* [Coherence Community Home Page](https://coherence.community/)
-* [Grafana](https://grafana.com/)
