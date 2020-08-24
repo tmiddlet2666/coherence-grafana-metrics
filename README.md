@@ -92,7 +92,8 @@ You should see the following indicating the metrics service is started in each o
 > Note: change the full path to your coherence.jar
 
 ```bash
-java -Dcoherence.distributed.localstorage=false -cp /u01/oracle/product/coherence/coherence12.2.1.4.0/coherence/lib/coherence.jar com.tangosol.net.CacheFactory
+export COH_JAR=~/.m2/repository/com/oracle/coherence/ce/coherence/20.06/coherence-20.06.jar
+java -Dcoherence.distributed.localstorage=false -cp $COH_JAR  com.tangosol.net.CacheFactory
 ```
 
 Enter the following at the prompt to create a cache and add 100,000 random objects:
@@ -128,7 +129,7 @@ This will create the image `prometheus_coherence:latest` with the above `prometh
 export HOST=127.0.0.1
 docker run -d -p $HOST:9090:9090 prometheus_coherence:latest
 
-docker run -d -p $HOST:3000:3000 grafana/grafana:6.6.2
+docker run -d -p $HOST:3000:3000 grafana/grafana:7.1.4
 ```
 
 > Note: Change HOST to a value that is suitable for your setup.
@@ -161,8 +162,11 @@ Ensure that you make this datasource the default datasource if it is not already
 ## 10. Import the Grafana Dashboards
 
 Login to Grafana and click on the `+` then `Import` and `Upload JSON File`.
-Select each of the dashboards in the `coherence-operator/helm-charts/coherence-operator/dashboards` directory you cloned above
+Select each of the dashboards in the `coherence-operator/dashboards/grafana` directory you cloned above
 and import them into Grafana.
+
+> Note: The Federation and Elastic Data dashboards will not display anything as this functionality is not
+> available in Coherence CE.
 
 ## 11. Access the Main Grafana dashboards
 
