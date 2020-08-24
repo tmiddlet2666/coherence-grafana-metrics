@@ -1,4 +1,4 @@
-# Monitor Your Coherence Clusters using Grafana and Prometheus
+# Monitor Your Coherence Clusters using Grafana and Prometheus (Coherence CE)
 
 ## Introduction
 
@@ -58,7 +58,7 @@ Also ensure COHERENCE_HOME is set correctly to the coherence directory as below:
 export COHERENCE_HOME=/u01/oracle/product/coherence/coherence12.2.1.4.0/coherence
 ```
 
-## 3. Start Coherence cache servers
+## 2. Start Coherence cache servers
 
 > Note: For Windows, replace start-server.sh with start-server.cmd.
 
@@ -87,7 +87,7 @@ You should see the following indicating the metrics service is started in each o
   ProxyService{Name=MetricsHttpProxy, State=(SERVICE_STARTED), Id=5, OldestMemberId=1}
 ```     
 
-## 4. Start the Console to Add Data
+## 3. Start the Console to Add Data
 
 > Note: change the full path to your coherence.jar
 
@@ -102,7 +102,7 @@ cache test
 bulkput 100000 100 0 100
 ```
 
-## 5. Create the Prometheus Docker image
+## 4. Create the Prometheus Docker image
 
 > Note: Ensure you have docker running.
 
@@ -123,7 +123,7 @@ docker build -t prometheus_coherence .
 
 This will create the image `prometheus_coherence:latest` with the above `prometheus.yaml`.
 
-## 6. Run the docker images
+## 5. Run the docker images
 
 ```bash
 export HOST=127.0.0.1
@@ -134,7 +134,7 @@ docker run -d -p $HOST:3000:3000 grafana/grafana:7.1.4
 
 > Note: Change HOST to a value that is suitable for your setup.
 
-## 7 Clone the Coherence Operator repository
+## 6. Clone the Coherence Operator repository
 
 Issue the following to clone the Coherence Operator repository.
 
@@ -142,14 +142,14 @@ Issue the following to clone the Coherence Operator repository.
 git clone https://github.com/oracle/coherence-operator.git
 ```
 
-## 8. Access Prometheus
+## 7. Access Prometheus
 
 Login to Prometheus and confirm that the targets have been discovered by
 going to the following URL: `http://127.0.0.1:9090/targets`
 
 You should see the targets you started in an `UP` state.
 
-## 9. Access Grafana and Create a datasource
+## 8. Access Grafana and Create a datasource
 
 Login to Grafana using the following URL: `http://127.0.0.1:3000/`  - default user admin/admin
 
@@ -159,19 +159,24 @@ Ensure that you make this datasource the default datasource if it is not already
 
 > Note: Change the `host.docker.internal` to an actual host name if you are running Prometheus outside of docker.
 
-## 10. Import the Grafana Dashboards
+## 9. Import the Grafana Dashboards
 
 Login to Grafana and click on the `+` then `Import` and `Upload JSON File`.
 Select each of the dashboards in the `coherence-operator/dashboards/grafana` directory you cloned above
 and import them into Grafana.
 
-> Note: The Federation and Elastic Data dashboards will not display anything as this functionality is not
-> available in Coherence CE.
+> Note: The Federation and Elastic Data dashboards will not display anything as this functionality is not available in Coherence CE.
 
-## 11. Access the Main Grafana dashboards
+## 10. Access the Main Grafana dashboards
 
 Access Grafana using the following URL: `http://127.0.0.1:3000/d/coh-main/coherence-dashboard-main`.
 
-## 12. Cleanup
+## 11. Cleanup
 
 Ensure you kill your docker images you started.
+
+# References
+
+* [Coherence Community Edition on GitHub](https://github.com/oracle/coherence)
+* [Coherence Community Home Page](https://coherence.community/)
+* [Grafana](https://grafana.com/)
