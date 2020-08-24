@@ -20,7 +20,7 @@ See the following for more information:
 * [Grafana](https://grafana.com/)
 
 
-> Note: These will work for Coherence CE versions 14.1.1-0-1 and above.
+> Note: These instructions will work for Coherence CE versions 14.1.1-0-1 and above.
 
 If you notice any errors in this documentation, please raise a P/R or issue.
 
@@ -37,11 +37,9 @@ You must have the following:
 
 ## 1. Generate the required dependencies
 
-Follow the instructions from the Coherence 12.2.1.4 metrics documentation https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/manage/using-coherence-metrics.html and create a pom.xml.
-
-The above instructions have been included below for convenience:
 
 ```bash
+cd coherence-grafana-metrics
 mvn dependency:build-classpath -P jdk11
 ```
 
@@ -92,8 +90,6 @@ You should see the following indicating the metrics service is started in each o
 
 ## 3. Start the Console to Add Data
 
-> Note: change the full path to your coherence.jar
-
 ```bash
 export COH_JAR=~/.m2/repository/com/oracle/coherence/ce/coherence/20.06/coherence-20.06.jar
 java -Dcoherence.distributed.localstorage=false -cp $COH_JAR  com.tangosol.net.CacheFactory
@@ -105,9 +101,9 @@ cache test
 bulkput 100000 100 0 100
 ```
 
-## 4. Create the Prometheus Docker image
+Type `bye` to exit the Console.
 
-> Note: Ensure you have docker running.
+## 4. Create the Prometheus Docker image
 
 Edit `prometheus.yml` and ensure the static configs are set as below:
 
