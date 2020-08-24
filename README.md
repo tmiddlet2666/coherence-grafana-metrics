@@ -7,8 +7,7 @@ members, capture those metrics via Prometheus and display then in Grafana
 using the dashboards from the [Coherence Operator](https://github.com/oracle/coherence-operator) project.
 
 > Note: This release of the coherence-grafana-metrics repository has instructions specifically for the
-> Community Edition (CE) of Coherence.
-> Please change to the [v1.0.0](https://github.com/tmiddlet2666/coherence-grafana-metrics/tree/v1.0.0) branch for Coherence Community Edition (CE) instructions.
+> Community Edition (CE) of Coherence. Please change to the [v1.0.0](https://github.com/tmiddlet2666/coherence-grafana-metrics/tree/v1.0.0) branch for Commercial Coherence instructions.
 
 **This is an example only and you can use this as a guide to adding Grafana monitoring to your cluster.**
 
