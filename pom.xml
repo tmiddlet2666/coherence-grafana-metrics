@@ -5,14 +5,19 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>metrics</artifactId>
   <groupId>metrics-deps</groupId>
-  <version>12.2.1-4-0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Coherence Metrics dependencies</name>
   <packaging>pom</packaging>
+
+  <properties>
+    <coherence.version>20.06</coherence.version>
+  </properties>
+
   <dependencies>
     <dependency>
-      <groupId>com.oracle.coherence</groupId>
+      <groupId>com.oracle.coherence.ce</groupId>
       <artifactId>coherence-metrics</artifactId>
-      <version>${project.version}</version>
+      <version>${coherence.version}</version>
     </dependency>
   </dependencies>
   <profiles>

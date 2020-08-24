@@ -7,8 +7,8 @@ members, capture those metrics via Prometheus and display then in Grafana
 using the dashboards from the [Coherence Operator](https://github.com/oracle/coherence-operator) project.
 
 > Note: This release of the coherence-grafana-metrics repository has instructions specifically for the
-> Commercial eidition of Coherence.
-> Please change to the master branch for Coherence Community Edition (CE) instructions.
+> Community Edition (CE) of Coherence.
+> Please change to the [v1.0.0](https://github.com/tmiddlet2666/coherence-grafana-metrics/tree/v1.0.0) branch for Coherence Community Edition (CE) instructions.
 
 **This is an example only and you can use this as a guide to adding Grafana monitoring to your cluster.**
 
@@ -17,7 +17,7 @@ See the following for more information:
 * [Coherence Operator GitHub Page](https://github.com/oracle/coherence-operator)
 * [Coherence Operator Metrics Documentation](https://oracle.github.io/coherence-operator/docs/2.1.0/#/metrics/010_overview)
 
-> Note: These will work for Coherence versions 12.2.1.4.0 and above.
+> Note: These will work for Coherence CE versions 14.1.1-0-1 and above.
 
 If you notice any errors in this documentation, please raise a P/R or issue.
 
@@ -27,42 +27,12 @@ You must have the following:
 
 * Docker Desktop for Mac or the equivalent Docker environment for you O/S.
 * Maven 3.5.4+
-* JDK 11 or 8
-* Oracle Coherence 12.2.1.4.+ installed
+* JDK 11
 * Cloned this repository via `git clone https://github.com/tmiddlet2666/coherence-grafana-metrics.git`
 
 > Note: This document has been written for Mac/Linux. Where appropriate, alternative Windows commands have been shown.
 
-## 1. Install Coherence and metrics dependencies
-
-Download and install Coherence from [https://www.oracle.com/middleware/technologies/coherence-downloads.html](https://www.oracle.com/middleware/technologies/coherence-downloads.html)
-
-Set the COHERENCE_HOME environment variable to the `coherence` directory you just installed and run the Maven commands below to import the coherence.jar and coherence-metrics.jar in your local repository.
-
-> Note: In the example below Coherence was installed into /u01/oracle/product/coherence/coherence12.2.1.4.0 for Mac/Linux and
-> C:\Tim\coherence12214 for Windows.
-
-For Mac/Linux
-
-```bash
-export COHERENCE_HOME=/u01/oracle/product/coherence/coherence12.2.1.4.0/coherence
-
-mvn install:install-file -Dfile=$COHERENCE_HOME/lib/coherence.jar         -DpomFile=$COHERENCE_HOME/plugins/maven/com/oracle/coherence/coherence/12.2.1/coherence.12.2.1.pom
-mvn install:install-file -Dfile=$COHERENCE_HOME/lib/coherence-metrics.jar -DpomFile=$COHERENCE_HOME/plugins/maven/com/oracle/coherence/coherence-metrics/12.2.1/coherence-metrics.12.2.1.pom
-```
-
-Windows
-
-```bash
-SET COHERENCE_HOME=c:\Tim\coherence12214
-mvn install:install-file -Dfile=%COHERENCE_HOME%\lib\coherence.jar         -DpomFile=%COHERENCE_HOME%\plugins\maven\com\oracle\coherence\coherence\12.2.1\coherence.12.2.1.pom
-mvn install:install-file -Dfile=%COHERENCE_HOME%\lib\coherence-metrics.jar -DpomFile=%COHERENCE_HOME%\plugins\maven\com\oracle\coherence\coherence-metrics\12.2.1\coherence-metrics.12.2.1.pom
-
-```
-
-> Note: If your Coherence version is greater than 12.2.1, then change the 12.2.1 to the correct version.
-
-## 2. Generate the required dependencies
+## 1. Generate the required dependencies
 
 Follow the instructions from the Coherence 12.2.1.4 metrics documentation https://docs.oracle.com/en/middleware/fusion-middleware/coherence/12.2.1.4/manage/using-coherence-metrics.html and create a pom.xml.
 
