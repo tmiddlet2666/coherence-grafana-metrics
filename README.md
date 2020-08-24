@@ -6,6 +6,10 @@ This document is a step by step example of how to enable metrics on Coherence cl
 members, capture those metrics via Prometheus and display then in Grafana
 using the dashboards from the [Coherence Operator](https://github.com/oracle/coherence-operator) project.
 
+> Note: This release of the coherence-grafana-metrics repository has instructions specifically for the
+> Commercial eidition of Coherence.
+> Please change to the master branch for Coherence Community Edition (CE) instructions.
+
 **This is an example only and you can use this as a guide to adding Grafana monitoring to your cluster.**
 
 See the following for more information:
@@ -157,7 +161,7 @@ docker run -d -p $HOST:9090:9090 prometheus_coherence:latest
 docker run -d -p $HOST:3000:3000 grafana/grafana:6.6.2
 ```
 
-> Note: Change HOST to a value that is suitable for your setup. 
+> Note: Change HOST to a value that is suitable for your setup.
 
 ## 7 Clone the Coherence Operator repository
 
