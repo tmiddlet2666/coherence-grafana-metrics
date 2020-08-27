@@ -17,12 +17,15 @@ See the following for more information:
 * [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/manage/using-coherence-metrics.html)
 * [Coherence Operator on GitHub](https://github.com/oracle/coherence-operator)
 * [Coherence Operator Metrics Documentation](https://oracle.github.io/coherence-operator/docs/3.0.0/#/metrics/010_overview)
+* [Coherence Operator Grafana Dashboards](https://oracle.github.io/coherence-operator/docs/3.0.2/#/metrics/040_dashboards)
 * [Grafana](https://grafana.com/)
-
 
 > Note: These instructions will work for Coherence CE versions 14.1.1-0-1 and above.
 
 If you notice any errors in this documentation, please raise a P/R or issue.
+
+
+![Main Dashboard](assets/main-dashboard.png)
 
 ## Prerequisites
 
@@ -92,13 +95,15 @@ You should see the following indicating the metrics service is started in each o
 
 ```bash
 export COH_JAR=~/.m2/repository/com/oracle/coherence/ce/coherence/20.06/coherence-20.06.jar
-java -Dcoherence.distributed.localstorage=false -cp $COH_JAR  com.tangosol.net.CacheFactory
+java -Dcoherence.distributed.localstorage=false -cp $COH_JAR com.tangosol.net.CacheFactory
 ```
 
 Enter the following at the prompt to create a cache and add 100,000 random objects:
 ```bash
-cache test
+cache test1
 bulkput 100000 100 0 100
+cache test2
+bulkput 40000 100 0 100
 ```
 
 Type `bye` to exit the Console.
