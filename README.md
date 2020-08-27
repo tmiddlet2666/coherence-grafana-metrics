@@ -17,15 +17,22 @@ See the following for more information:
 * [Coherence documentation on Metrics](https://docs.oracle.com/en/middleware/standalone/coherence/14.1.1.0/manage/using-coherence-metrics.html)
 * [Coherence Operator on GitHub](https://github.com/oracle/coherence-operator)
 * [Coherence Operator Metrics Documentation](https://oracle.github.io/coherence-operator/docs/3.0.0/#/metrics/010_overview)
-* [Coherence Operator Grafana Dashboards](https://oracle.github.io/coherence-operator/docs/3.0.2/#/metrics/040_dashboards)
+* [Coherence Operator Grafana Dashboards in Detail](https://oracle.github.io/coherence-operator/docs/3.0.2/#/metrics/040_dashboards)
 * [Grafana](https://grafana.com/)
 
 > Note: These instructions will work for Coherence CE versions 14.1.1-0-1 and above.
 
 If you notice any errors in this documentation, please raise a P/R or issue.
 
+## Sample Dashboards
 
+Below are a couple of the sample dashboards. For details of all the dashboards, please see the [Coherence Operator Documentation](https://oracle.github.io/coherence-operator/docs/3.0.2/#/metrics/040_dashboards).
+
+### Main Dashboards
 ![Main Dashboard](assets/main-dashboard.png)
+
+### Members Summary
+![Members Summary](assets/members-summary.png)
 
 ## Prerequisites
 
