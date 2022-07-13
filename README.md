@@ -40,7 +40,7 @@ You must have the following:
 
 * Docker Desktop for Mac or the equivalent Docker environment for you O/S.
 * Maven 3.5.4+
-* JDK 11
+* JDK 11+
 * Cloned this repository via `git clone https://github.com/tmiddlet2666/coherence-grafana-metrics.git`
 
 > Note: This document has been written for Mac/Linux. Where appropriate, alternative Windows commands have been shown.
@@ -50,10 +50,8 @@ You must have the following:
 
 ```bash
 cd coherence-grafana-metrics
-mvn dependency:build-classpath -P jdk11
+mvn dependency:build-classpath
 ```
-
-Remove `-P jdk11` if you are using JDK8.
 
 Save the output of `[INFO] Dependencies classpath:` above to the `METRICS_CP` variable in `start-server.sh` or `start-server.cmd`.
 
@@ -64,10 +62,6 @@ export METRICS_CP="<INSERT FULL CLASSPATH HERE>"
 ```
 
 Also ensure COHERENCE_HOME is set correctly to the coherence directory as below:
-
-```bash
-export COHERENCE_HOME=/u01/oracle/product/coherence/coherence12.2.1.4.0/coherence
-```
 
 ## 2. Start Coherence cache servers
 
@@ -101,7 +95,7 @@ You should see the following indicating the metrics service is started in each o
 ## 3. Start the Console to add data
 
 ```bash
-export COH_JAR=~/.m2/repository/com/oracle/coherence/ce/coherence/20.06/coherence-20.06.jar
+export COH_JAR=~/.m2/repository/com/oracle/coherence/ce/coherence/22.06/coherence-22.06.jar
 java -Dcoherence.distributed.localstorage=false -cp $COH_JAR com.tangosol.net.CacheFactory
 ```
 
@@ -140,7 +134,7 @@ This will create the image `prometheus_coherence:latest` with the above `prometh
 export HOST=127.0.0.1
 docker run -d -p $HOST:9090:9090 prometheus_coherence:latest
 
-docker run -d -p $HOST:3000:3000 grafana/grafana:7.1.4
+docker run -d -p $HOST:3000:3000 grafana/grafana:8.5.6
 ```
 
 > Note: Change HOST to a value that is suitable for your setup.
@@ -164,7 +158,7 @@ You should see the targets you started in an `UP` state.
 
 Login to Grafana using the following URL: `http://127.0.0.1:3000/`  - default user admin/admin
 
-Add a default Prometheus data source called `Prometheus` with an endpoint of `http://host.docker.internal:9090`.
+Add a default Prometheus data source called `prometheus` with an endpoint of `http://host.docker.internal:9090`.
 
 Ensure that you make this datasource the default datasource if it is not already.
 

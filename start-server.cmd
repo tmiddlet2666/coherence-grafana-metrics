@@ -13,7 +13,7 @@ SET ROLE=%3
 set METRICS_CP="<INSERT FULL CLASSPATH HERE>"
 
 java -Dcoherence.metrics.http.enabled=true -Dcoherence.metrics.http.port=%PORT% ^
-     -Dcoherence.metrics.legacy.names=false ^
+     -Dcoherence.metrics.legacy.names=true ^
      -Dcoherence.machine=localhost -Dcoherence.role=%ROLE% -Dcoherence.member=%MEMBER% ^
      -Dcoherence.site=PrimarySite ^
      -cp "%METRICS_CP%" com.tangosol.net.DefaultCacheServer
