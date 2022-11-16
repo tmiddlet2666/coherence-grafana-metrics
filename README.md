@@ -2,6 +2,8 @@
 
 ## Introduction
 
+>NOTE: This repository is no longer being maintained. Please see the updated projects in https://github.com/tmiddlet2666/coherence-playground.
+
 This document is a step by step example of how to enable metrics on Coherence cluster
 members, capture those metrics via Prometheus and display then in Grafana
 using the dashboards from the [Coherence Operator](https://github.com/oracle/coherence-operator) project.
